@@ -5,8 +5,25 @@
 $( window ).load( function()
 {
     $( '#list' ).masonry( {
-        itemSelector: '.item',
-        isFitWidth: true} );
+    itemSelector: '.item',
+    isFitWidth: true} );
+    /*
+    var $boxes = $('.item');
+    $boxes.hide();
+
+    var $container = $('#list');
+    $container.imagesLoaded( function() {
+        $boxes.fadeIn();
+
+        $container.masonry({
+            itemSelector : '.item',
+            columnwidth: 300,
+            gutter: 20,
+            isFitWidth: true,
+            isAnimated: !Modernizr.csstransitions
+        });
+    });
+    */
 });
 
 //VERY simple way of adding the images to the profile
@@ -14,6 +31,7 @@ $(document).ready(function () {
     var item1 = "\"item\"";
     var item2 = "\"item grid-item--width2\"";
     var images ="";
+
     if(currentUser != " ") {
         for (var i = currentUser.images.length - 1; i >= 0; i--) {
             if (typeof currentUser.images[i].url != 'undefined') {

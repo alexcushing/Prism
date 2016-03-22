@@ -9,5 +9,7 @@
     <orderEntry type="library" name="jquery.validate" level="application" />
     <orderEntry type="library" name="additional-methods" level="application" />
     <orderEntry type="library" name="masonry.pkgd" level="application" />
+    <orderEntry type="library" name="jquery.lazyload" level="application" />
+    <orderEntry type="library" name="imagesloaded.pkgd" level="application" />
   </component>
 </module>

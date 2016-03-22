@@ -10,20 +10,19 @@ var router = express.Router();
 //receives the index view along with request.user, the jade file will then decide which version of the home page to display depending
 //on if the user is currently authenticated.
 router.get('/', function (req, res) {
-  var notifNum = 0;
+  var notifNum = 0;                                             //var for holding amount of NEW notifications
   if(typeof req.user != "undefined") {
     if (typeof req.user.notifications != 'undefined') {
-      console.log(req.user.notifications.length);
-      for(var i=0; i < req.user.notifications.length; i++) {
+      for(var i=0; i < req.user.notifications.length; i++) {    //if the notification hasn't been seen yet
         if (req.user.notifications[i].seen === false) {
-          console.log(req.user.notifications[i].seen);
           notifNum++;
         }
       }
 
     }
   }
-  res.render('index', { user : req.user, notifications: notifNum });
+  //render the index
+  res.render('index', { user : req.user, notifications: notifNum});
 });
 
 //about us page
@@ -40,9 +39,9 @@ router.get('/search', function (req, res) {
 });
 
 router.get('/img/:imageid', function(req, res){
+    //look for the requested image and send to error page if it cant find it
     Image.findById(req.params.imageid, function(err, img){
       if(img){
-        //return res.render("image", {usrimage: image, user: usr, currentuser: req.user, nextPicture: backPic, backPicture: nextPic, index: index});
         res.render("img", {usrimage: img, currentuser: req.user});
       }else{
         res.render('error', {message: "Cannot find image"})
@@ -55,12 +54,14 @@ router.get('/feed', function (req, res){
     Account.find({
       '_id': { $in: req.user.following
       }
-    }, function(err, docs){
+    },
+      function(err, docs){
+
       var feed = [];
-      //console.log(docs[0].images);
+
       for(var i= 0; i < docs.length; i++){
-        console.log(docs[i].images.length);
         for(var j =0; j <docs[i].images.length; j++){
+          //make a feed object with all relevant information
           var feedobject = {
             userid: docs[i]._id,
             imageid: docs[i].images[j]._id,
@@ -74,6 +75,8 @@ router.get('/feed', function (req, res){
           //console.log(feed);
         }
       }
+
+      //sort chrononlogically
       feed.sort(function(x, y){
         return x.time - y.time;
       });
