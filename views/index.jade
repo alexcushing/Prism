@@ -39,7 +39,8 @@ block content
         .container
         .profileCont
           #profileInfo
-            img#proP.myClass(src= " " + user.propic)
+            a(href="/uploadpropic")
+             img#proP.myClass(src= " " + user.propic)
             .myClass
               #fullName
                 h1 #{user.fullname}
@@ -54,8 +55,6 @@ block content
             #emptyareaindex
         #wrapper
             #list
-                if(gallery)
-                    #{gallery}
         #selLog
           a(href="/feed")
             button.btn.btn-primary(type="button") Feed
@@ -69,8 +68,7 @@ block content
             button.btn.btn-primary(type="button") Logout
 
           a(href="/user/#{user.username}/notifications")
-            button.btn.btn-primary(type="button" id="notifbut")
-                #notifications
+            button.btn.btn-primary(type="button" id="notifbut") #{notifications}
             script.
               currentUser= !{JSON.stringify(user)};
               thisimage = " ";
